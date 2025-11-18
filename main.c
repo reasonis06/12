@@ -3,6 +3,11 @@
 #include <time.h>
 #include "board.h"
 
+#define MAX_DICE			6
+int roll_dice(void)
+{
+	return rand()%MAX_DICE + 1;
+}
 int main(int argc, char *argv[])
 {
 	srand((unsigned)(time(NULL)));
@@ -14,13 +19,32 @@ int main(int argc, char *argv[])
 	printf("============================================\n");
 
 	//step 1. initialization (player name setting, variables) 
-	board_printBoardStatus();
+	board_initBoard();
+
 	
 	//step 2. turn play (do-while) 
-		// 2-1. status printing
-		// 2-2. roll dice
-		// 2-3. move (result)
-		// 2-4. change turn, shark move
+	int cnt = 0;
+	int pos = 0;
+	do {
+			int dice_result;
+			int coinResult;
+			// 2-1. status printing
+			board_printBoardStatus();
+			// 2-2. roll dice
+			dice_result = roll_dice();
+			// 2-3. move (result)
+			pos += dice_result;
+			
+			printf("pos : %i(dice: %i)\n", pos, dice_result);
+
+			
+			//coinResult = board_getBoardCoin(pos);
+			
+			printf("coin : %i\n");
+			
+			// 2-4. change turn, shark move
+			cnt++;
+	} while(cnt < 5);
 	//step 3. game end (winner printing)
 
   printf("\n\n\n\n\n\n\n");
